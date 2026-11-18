@@ -1,0 +1,12 @@
+.git
+.github
+.env
+__pycache__
+*.pyc
+.venv/
+.venv*/
+venv/
+backend/.chroma/
+*.sqlite3
+.DS_Store
+**/.DS_Store
