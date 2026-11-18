@@ -24,9 +24,12 @@ def diagnose_leaf(image_data_url: str, note: str = "") -> dict:
     if not image_data_url.startswith("data:image"):
         return {"error": "Expected an image data URL."}
     try:
-        client = OpenAI(api_key=config.OPENAI_API_KEY)
+        from ..agent.loop import get_llm_client_and_model
+        client, _, prov = get_llm_client_and_model()
+        vision_model = "gemini-2.0-flash" if prov == "gemini" else "gpt-4o-mini"
+
         resp = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model=vision_model,
             messages=[
                 {"role": "system", "content": _SYSTEM},
                 {"role": "user", "content": [
@@ -36,6 +39,6 @@ def diagnose_leaf(image_data_url: str, note: str = "") -> dict:
             ],
             max_tokens=600,  # Bengali needs more tokens; 300 truncated the diagnosis mid-sentence
         )
-        return {"diagnosis": resp.choices[0].message.content or "", "source": "AI visual assessment (vision model)"}
+        return {"diagnosis": resp.choices[0].message.content or "", "source": f"AI visual assessment ({vision_model})"}
     except Exception as e:
         return {"error": f"Vision API Error: {type(e).__name__} - {str(e)}. Tell the farmer the image processing failed due to a technical error."}

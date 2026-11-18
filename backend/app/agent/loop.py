@@ -28,9 +28,10 @@ def run_agent(session_id: str, user_message: str, image_data_url: str = None):
     system = build_system_prompt(profile)
     history = db.get_history(session_id, limit=30)
 
-    yield {"type": "status", "text": f"Agent started (openai · {state.current_model()})"}
+    client, model, prov = get_llm_client_and_model()
+    yield {"type": "status", "text": f"Agent started ({prov} · {model})"}
 
-    gen = _run_openai(session_id, system, history)
+    gen = _run_llm(session_id, system, history)
 
     final = None
     for event in gen:
@@ -49,13 +50,32 @@ def _timed_dispatch(session_id, name, args):
     return result, ms
 
 
-# ---------------- OpenAI (primary) ----------------
-
-def _run_openai(session_id, system, history):
+def get_llm_client_and_model():
     from openai import OpenAI
-
-    client = OpenAI(api_key=config.OPENAI_API_KEY)
+    p = state.provider()
     model = state.current_model()
+
+    active_key = config.GEMINI_API_KEY or config.OPENAI_API_KEY
+    if p == "gemini" or (active_key and active_key.startswith("AIzaSy")):
+        if not model.startswith("gemini"):
+            model = config.GEMINI_MODEL
+        client = OpenAI(
+            api_key=active_key,
+            base_url=config.GEMINI_BASE_URL,
+        )
+        return client, model, "gemini"
+    else:
+        client = OpenAI(
+            api_key=config.OPENAI_API_KEY,
+            base_url=config.OPENAI_BASE_URL,
+        )
+        return client, model, "openai"
+
+
+# ---------------- LLM Runner (Gemini Free / OpenAI) ----------------
+
+def _run_llm(session_id, system, history):
+    client, model, prov = get_llm_client_and_model()
     messages = [{"role": "system", "content": system}] + history
 
     for _ in range(config.MAX_AGENT_ITERATIONS):

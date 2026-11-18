@@ -13,7 +13,9 @@ fetch("/api/health").then(r => r.json()).then(h => {
 // Live model switcher
 fetch("/api/model").then(r => r.json()).then(m => {
   const sel = $("modelSelect");
-  const groups = [["OpenAI", m.openai_models]];
+  const groups = [];
+  if (m.gemini_models && m.gemini_models.length) groups.push(["Google Gemini (Free)", m.gemini_models]);
+  if (m.openai_models && m.openai_models.length) groups.push(["OpenAI", m.openai_models]);
   for (const [name, models] of groups) {
     const og = document.createElement("optgroup");
     og.label = name;
