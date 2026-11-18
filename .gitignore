@@ -1,0 +1,22 @@
+.env
+__pycache__/
+*.pyc
+.venv/
+.venv*/
+venv/
+backend/.chroma/
+*.sqlite3
+backend/*.sqlite3
+.DS_Store
+**/.DS_Store
+Agentic_AI_Hackathon_Final_Question.pdf
+backend/data/masked_ids.json
+backend/data/weather_cache.json
+
+# Raw source PDFs / geospatial rasters (huge; keep out of git)
+pdfs/*.pdf
+pdfs/.tif/
+pdfs/**/*.tif
+pdfs/**/*.rar
+pdfs/*.md
+pdfs/dam/

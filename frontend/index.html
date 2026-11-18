@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ফসলের চিকিৎসা (Fosholer Chikitsha) — KrishiMitro AI</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>🌾 ফসলের চিকিৎসা (Fosholer Chikitsha)</h1>
+      <span class="sub">AI-Powered Digital Crop Doctor & Advisory Platform · KrishiMitro</span>
+    </div>
+    <div class="header-right">
+      <select id="modelSelect" title="Switch the agent model live (no restart)"></select>
+      <span id="health" class="pill">…</span>
+      <button id="resetBtn" title="Forget this farm and start over">New farm</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="chatPane">
+      <div id="alertBanner" class="hidden"></div>
+      <div id="messages"></div>
+      <div id="quickActions"></div>
+      <form id="composer">
+        <input type="file" id="fileInput" accept="image/*" class="hidden" capture="environment" style="display: none;" />
+        <button type="button" id="cameraBtn" title="Upload leaf photo" style="font-size: 1.2rem; padding: 0 10px; background: none; border: none; cursor: pointer;">📷</button>
+        <input id="input" autocomplete="off"
+               placeholder="e.g. I have 2 acres in Bogura, what should I plant this winter?" />
+        <button type="submit" id="sendBtn">Send</button>
+      </form>
+    </section>
+
+    <div id="dragbar" title="Drag to resize · double-click to reset"></div>
+
+    <aside id="tracePane">
+      <div class="trace-header">
+        <div>
+          <h2>🔍 <span>Agent Trace</span></h2>
+          <span class="sub">every tool call · params sent · raw values returned</span>
+        </div>
+        <div class="trace-btns">
+          <button id="traceCopy" title="Copy the full agent trace">📋 Copy</button>
+          <button id="traceToggle" title="Collapse / expand trace panel">⟩</button>
+        </div>
+      </div>
+      <div id="trace"></div>
+    </aside>
+  </main>
+
+  <div id="orderModal" class="modal-overlay hidden">
+    <div class="modal order">
+      <h3>🛒 অর্ডার তৈরি করুন</h3>
+      <div id="orderRows"></div>
+      <button id="orderAddRow" type="button" class="linkbtn">+ আরও পণ্য যোগ করুন</button>
+      <div class="order-total">মোট: <b>৳<span id="orderTotal">0</span></b></div>
+      <div id="orderWarn" class="order-warn hidden"></div>
+      <div class="order-phone">
+        <label for="orderPhone">মোবাইল নম্বর</label>
+        <input id="orderPhone" inputmode="numeric" autocomplete="off" placeholder="8801XXXXXXXXX" />
+      </div>
+      <div class="modal-actions">
+        <button id="orderCancel" class="mbtn no">বাতিল</button>
+        <button id="orderConfirm" class="mbtn yes">পেমেন্টে যান →</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="payModal" class="modal-overlay hidden">
+    <div class="modal">
+      <h3>⚠️ পেমেন্ট নিশ্চিত করুন</h3>
+      <div id="payDetails"></div>
+      <div class="modal-actions">
+        <button id="payNo" class="mbtn no">না, বাতিল</button>
+        <button id="payYes" class="mbtn yes">হ্যাঁ, পেমেন্ট করুন</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
