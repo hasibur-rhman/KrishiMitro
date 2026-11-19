@@ -1,11 +1,7 @@
 # bdapps API — Complete Agent Reference
 Source: official "BDApps API Guide" v1.1.3 (hSenid Mobile / Robi, 2019).
-Purpose: everything an agent needs to implement bdapps SMS, USSD, CAAS
-(Charging-as-a-Service) and OTP. For the AgriSense hackathon, the scoring
-target is the CAAS checkout flow (Section 5) in sandbox mode.
-NOTE: this guide is from 2019; the hackathon links the current TAP doc at
-https://dev.bdapps.com/API_Documentation/bdapps_tap_api.html — verify field
-names there if a call fails with E1312 (invalid request).
+Purpose: Reference implementation for bdapps SMS, USSD, and CaaS
+(Charging-as-a-Service) integration within the KrishiMitro platform.
 
 ---
 

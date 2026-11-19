@@ -1,67 +1,75 @@
-# 🌾 ফসলের চিকিৎসা (KrishiMitro) — Live Demonstration & Pitch Playbook
+# 🌾 KrishiMitro (Fosholer Chikitsha) — Demonstration & Pitch Playbook
 
-A structured demonstration walkthrough for **Fosholer Chikitsha (ফসলের চিকিৎসা)**, showcasing the autonomous agent, leaf disease diagnosis, weather-aware season calendar, and financial planning.
+A structured walkthrough and product pitch guide for **KrishiMitro — Fosholer Chikitsha**, showcasing autonomous multi-step reasoning, on-field leaf pathology diagnosis, climate-aware crop scheduling, and deterministic farm economics.
 
 ---
 
-## ⏱️ Pre-Demo Setup Checklist
-- [ ] Dependencies installed: `source .venv/bin/activate`
-- [ ] Knowledge base verified: `cd backend && python -m app.rag.ingest` (195 chunks / 19 docs indexed in ChromaDB)
+## ⏱️ Pre-Demo Setup & Verification
+- [ ] Environment active: `source .venv/bin/activate`
+- [ ] Knowledge base verified: `cd backend && python -m app.rag.ingest` (195 chunks / 19 documents indexed)
 - [ ] Application running: `uvicorn app.main:app --port 8000`
 - [ ] Open in browser: **http://localhost:8000**
-- [ ] `.env` has valid `GEMINI_API_KEY` (Free) or `OPENAI_API_KEY`
-- [ ] Click **"New farm"** to clear session history and start fresh.
+- [ ] Verify `.env` contains an active `GEMINI_API_KEY` (Free Tier) or `OPENAI_API_KEY`
+- [ ] Click **"New farm"** in the UI header to clear local session memory and start clean.
 
 ---
 
 ## 🎤 30-Second Elevator Pitch
-> *"ফসলের চিকিৎসা (KrishiMitro) হলো বাংলাদেশের কৃষকদের জন্য একটি এআই-চালিত ডিজিটাল ডাক্তার ও পরামর্শক প্ল্যাটফর্ম। সাধারণ চ্যাটবটের মতো এটি কেবল কথা বলে না, বরং একটি অটোনোমাস এজেন্ট হিসেবে লাইভ আবহাওয়া, সরকারি নলেজ বেস, ভূ-স্থানিক মাটির ডাটা এবং পাইথনের ডিটারমিনিস্টিক আর্থিক ক্যালকুলেশন ব্যবহার করে কৃষকের ফসলের রোগ নির্ণয় ও লাভজনক সিজনাল পরিকল্পনা তৈরি করে দেয়। এর প্রতিটি হিসাব ডানপাশের লাইভ ট্রেস প্যানেলে সম্পূর্ণ স্বচ্ছ ও যাচাইযোগ্য।"*
+> *"Smallholder farmers face unpredictable climate shifts, volatile input costs, and devastating pest outbreaks without timely access to agronomic experts. Standard chatbots offer generic, hallucinated text that farmers cannot risk their livelihoods on. **KrishiMitro** is an autonomous AI agronomist that combines computer vision for instant leaf disease diagnosis with deterministic mathematical engines and verified government research. It turns an empty field into an itemized, weather-aware season plan, complete with water-saving AWD mapping and transparent, auditable decision trails."*
 
 ---
 
-## ▶️ Step-by-Step 4-Minute Demo Script
+## ▶️ 4-Minute Interactive Demonstration Flow
 
-### 1. Conversational Intake & Geospatial Soil Auto-Detection
-- **Farmer Prompt:** *"আমার ২ একর জমি বগুড়ায়, বাজেট ৮০ হাজার টাকা, রবি মৌসুমে কি চাষ করব?"*
-- **What to Observe in Live Trace:**
-  - `geocode_location` Open-Meteo থেকে GPS স্থানাঙ্ক বের করে।
-  - `lookup_soil_texture` SRDI-এর ডিজিটাল সয়েল ম্যাপ থেকে স্বয়ংক্রিয়ভাবে দোআঁশ (Clay Loam) মাটি শনাক্ত করে।
-  - `get_weather_forecast` আগামী ১৪ দিনের লাইভ পূর্বাভাস নিয়ে আসে।
-  - কৃষককে অতিরিক্ত বিরক্ত না করে প্রয়োজনীয় ৩টি উপযুক্ত ফসলের তুলনামূলক তালিকা উপস্থাপন করে।
+### Step 1: Natural Conversational Intake & Geospatial Soil Auto-Detection
+- **User Prompt:** *"I have 2 acres in Bogura, budget 80,000 BDT, planning for this winter (Rabi) season. What should I grow?"*
+- **What to Highlight in the Live Trace Panel:**
+  - `geocode_location`: Resolves Bogura coordinates via Open-Meteo.
+  - `lookup_soil_texture`: Automatically samples SRDI digital raster maps to detect **Clay Loam (দোআঁশ)** soil—without questioning or confusing the farmer with technical soil surveys.
+  - `get_weather_forecast`: Retrieves live 14-day rainfall and temperature distributions.
+  - Demonstrates that the agent collects missing parameters intelligently rather than running an exhaustive questionnaire.
 
-### 2. Multi-Crop Ranking with Deterministic Economics
-- এজেন্ট ৩টি উপযুক্ত ফসল (যেমন: আলু, গম, সরিষা) সাজিয়ে দেয়।
-- প্রতিটি ফসলের পানি চাহিদা, ঝুঁকির মাত্রা, সম্ভাব্য খরচ, ফলন এবং প্রফিট মার্জিন (ROI) হিসাব করে দেয়।
+### Step 2: Multi-Crop Comparative Ranking with Deterministic Economics
+- The agent analyzes agro-climatic suitability and presents 3 optimal candidate crops (e.g., Potato, Wheat, Mustard).
+- **Core Value:** Each crop is ranked by suitability, water requirement, operational risk, and projected net profit computed by `compute_financials`.
+- Show that modifying the budget or land area recalculates itemized expenditure, expected harvest yield, and return on investment (ROI) via pure Python algorithms.
 
-### 3. Crop Selection & Dated Season Calendar
-- **Farmer Prompt:** *"আলুর সম্পূর্ণ চাষের রুটিন দাও"*
-- **Result:** জমি তৈরি, সার প্রয়োগের কিস্তি (ইউরিয়া, টিএসপি, এমওপি), সেচের দিন এবং ফসল তোলার সুনির্দিষ্ট তারিখসহ একটি ভ্যালিডেটেড ক্যালেন্ডার তৈরি হয়।
+### Step 3: Validated Season Calendar Generation
+- **User Prompt:** *"Build me the complete season plan for Potato."*
+- **Outcome:** The agent executes `generate_season_plan` to construct a chronologically validated timeline:
+  - Land preparation & basal fertilizer placement.
+  - Sowing & seed tuber depth.
+  - Nitrogen (Urea) top-dressing split dates.
+  - Irrigation schedules and late-blight scouting checkpoints.
+  - Harvest and skin-curing timelines.
 
-### 4. AWD (Alternate Wetting and Drying) Water-Saving Technology
-- **Farmer Prompt:** *"সেচ খরচ কমানোর উপায় কি?"*
-- **Result:** BRRI/IRRI-এর ভূ-স্থানিক AWD ম্যাপ যাচাই করে ধানের ক্ষেত্রে ২৫-৩০% পানি ও খরচ সাশ্রয়ের বৈজ্ঞানিক গাইডলাইন দেয়।
+### Step 4: Climate-Smart Irrigation via AWD Suitability Mapping
+- **User Prompt:** *"How can I cut my irrigation and pumping costs?"*
+- **Outcome:** For paddy crops, the agent queries `lookup_awd_suitability` against BRRI/IRRI spatial rasters.
+- Quantifies that the farm is suitable for Alternate Wetting and Drying (AWD), forecasting a **25%–30% reduction** in water pumping fuel and electricity expenses.
 
-### 5. AI Leaf Disease Diagnosis (Computer Vision)
-- ক্যামেরা আইকন (📷) ক্লিক করে পোকা ধরা বা রোগাক্রান্ত পাতার ছবি আপলোড করুন।
-- **Result:** Multimodal Vision AI (`gemini-3.8-flash` / `gpt-4o-mini`) পাতার লক্ষণ বিশ্লেষণ করে রোগের নাম (যেমন: লেট ব্লাইট / ব্লাস্ট), নিশ্চিতের মাত্রা (Confidence) এবং বালাইনাশক স্প্রে করার সঠিক প্রেসক্রিপশন দেয়।
+### Step 5: Multimodal Plant Disease Diagnosis (Computer Vision)
+- Click the camera button (📷) to upload a field photo of an infected leaf (e.g., late blight or blast lesion).
+- **Outcome:** Multimodal vision identifies visible pathology, provides English and Bengali disease taxonomy, assigns a confidence level, and retrieves vetted Integrated Pest Management (IPM) chemical and organic treatment protocols.
 
-### 6. Proactive Weather Alerts
-- উপরে নোটিফিকেশন ব্যানার লক্ষ্য করুন: যদি আগামী কয়েকদিনের মধ্যে ভারী বৃষ্টির সম্ভাবনা থাকে, তবে ইউরিয়া উপরিপ্রয়োগ বা সেচ পিছিয়ে দেওয়ার স্বয়ংক্রিয় সতর্কবার্তা দেখায়।
+### Step 6: Proactive Meteorological Schedule Alarms
+- Direct attention to the notification banner at the top of the interface:
+- If unseasonal heavy rainfall is predicted within 72 hours of a scheduled nitrogen application, the system proactively generates a banner notification recommending postponing fertilization to prevent nutrient runoff and cost wastage.
 
-### 7. Direct Official Helpline Tap-to-Call
-- **Farmer Prompt:** *"কৃষি কর্মকর্তার সাথে কথা বলতে চাই"*
-- **Result:** স্ক্রিনে সরাসরি কৃষি কল সেন্টারের **📞 ১৬১২৩** ডায়াল বাটন চলে আসে।
+### Step 7: Official Extension Helpline Integration
+- **User Prompt:** *"I need to speak directly with an agriculture officer."*
+- **Outcome:** Renders an instant one-tap dialer chip linking to the official National Agriculture Call Center (**📞 16123**).
 
-### 8. Telco Micro-Payment & SMS Receipt (bdapps)
-- প্রয়োজনীয় সার বা বীজ কেনার ক্ষেত্রে মোবাইল ব্যালেন্স থেকে পেমেন্ট ও কনফার্মেশন এসএমএস রিসিটের সম্পূর্ণ সিমুলেশন দেখা যায়।
+### Step 8: Seamless Telco Micro-Payment Simulation
+- Farmers can purchase seeds and fertilizers through an integrated cart modal, triggering bdapps Charging-as-a-Service (CaaS) mobile balance deduction and SMS invoice delivery.
 
 ---
 
-## 🛡️ Key Value Propositions & Answers
+## 🛡️ Strategic Q&A for Investors, Judges, and Partners
 
-| বিষয় | কৃষকের সুবিধা |
+| Common Inquiry | Technical Reality & Competitive Edge |
 |---|---|
-| **কোনো অনুমানের হিসাব নেই (Zero Hallucination)** | সমস্ত আর্থিক হিসাব ও সারের ডোজ পাইথনের ডিটারমিনিস্টিক কোডে গণনা করা হয়। |
-| **সরকারি গবেষণা তথ্যের ভিত্তি** | BARC, BRRI, SRDI, DAE এবং DAM-এর ১৯টি অফিসিয়াল ম্যানুয়ালের ওপর RAG কাজ করে। |
-| **লাইভ আবহাওয়া সচেতনতা** | ওপেন-মেটিও রিয়েল-টাইম এপিআই থেকে বৃষ্টি ও তাপমাত্রার ডাটা নিয়ে পরামর্শ অ্যাডজাস্ট হয়। |
-| **স্মার্ট মেমোরি** | ব্রাউজার রিলোড দিলেও SQLite ডাটাবেজ কৃষকের জমির তথ্য ও পূর্বের চ্যাট মনে রাখে। |
+| **"How do you prevent dangerous AI hallucinations in fertilizer dosages and finances?"** | The LLM is strictly prohibited from performing arithmetic or dosage synthesis. All financial figures, break-even thresholds, fertilizer splits, and crop durations are executed in deterministic Python modules backed by 67 automated unit tests. |
+| **"Where does the agronomic knowledge originate?"** | Grounded in 19 verified government manuals from apex institutions: BARC (FRG 2024), BRRI, SRDI, DAE, BBS, and DAM. |
+| **"How does the system perform in low-connectivity rural settings?"** | GIS rasters are pre-baked into lightweight spatial JSON grids ($O(1)$ lookup time), weather queries feature local caching, and the interface is designed as lightweight vanilla JS. |
+| **"Is farmer data preserved across devices?"** | State is persisted in a local SQLite database indexed by session ID, allowing farmers to refresh or return weeks later without losing their profile. |
