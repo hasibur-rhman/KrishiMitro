@@ -14,12 +14,12 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 _active_key = GEMINI_API_KEY or OPENAI_API_KEY
 if GEMINI_API_KEY or _active_key.startswith("AIzaSy"):
     DEFAULT_PROVIDER = "gemini"
-    DEFAULT_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+    DEFAULT_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
 else:
     DEFAULT_PROVIDER = os.getenv("LLM_PROVIDER", "gemini")
-    DEFAULT_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash") if DEFAULT_PROVIDER == "gemini" else os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+    DEFAULT_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.8-flash") if DEFAULT_PROVIDER == "gemini" else os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 
-GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
 GEMINI_BASE_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
 OPENAI_BASE_URL = os.getenv("OPENAI_BASE_URL", None)

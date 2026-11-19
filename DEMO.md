@@ -1,51 +1,67 @@
-# AgriSense — Booth Demo Playbook (judges come to you)
+# 🌾 ফসলের চিকিৎসা (KrishiMitro) — Live Demonstration & Pitch Playbook
 
-## ⏱️ Before judges arrive (setup checklist)
-- [ ] `cd backend && source .venv/bin/activate && python -m app.rag.ingest` → should say **~195 chunks / 19 docs**
-- [ ] `uvicorn app.main:app --port 8000` running; open **http://localhost:8000**
-- [ ] `.env` has OpenAI key + bdapps creds (`APP_139267`) → bdapps runs REAL
-- [ ] Phone `8801875191553` handy (receipt SMS lands there — show the judge the real SMS!)
-- [ ] Click **"New farm"** to start clean; internet on (weather + web-search are live)
+A structured demonstration walkthrough for **Fosholer Chikitsha (ফসলের চিকিৎসা)**, showcasing the autonomous agent, leaf disease diagnosis, weather-aware season calendar, and financial planning.
 
-## 🎤 30-second opener (when a judge sits down)
-> "AgriSense takes a farmer from an empty field to a costed, weather-aware season plan — and it's a real **agent**, not a chatbot. Everything on the right is a **live trace**: every number you'll see came from a real tool call, not the model's imagination. Let me show you."
+---
 
-## ▶️ The 4-minute run (do it in this order)
-1. **Vague intake** — type: *"আমার ২ একর জমি বগুড়ায়, বাজেট ৮০ হাজার, বোরো মৌসুম। কী চাষ করব?"*
-   → Point at trace: **geocode → lookup_soil_texture (auto-detects soil from the real SRDI map!) → live weather → RAG → compute_financials ×3**.
-   → Say: *"It asked nothing extra — it detected the soil from the location and scaled to the budget."*
-2. **3 crops, costed** — it ranks 3 crops with cost/profit/ROI. → *"Change the budget and the numbers change — the math is a deterministic Python engine, not the LLM."*
-3. **Pick a crop → dated plan** — *"বোরো ধানের সম্পূর্ণ প্ল্যান দাও"* → dated calendar (land prep→fertilizer splits→harvest), **deterministic + validated**.
-4. **AWD wow** — *"সেচের খরচ কমানোর উপায়?"* → real BRRI/IRRI map → *"your area is suitable for AWD → save ~25-30% irrigation cost."*
-5. **Proactive alert** — point at the **weather alert banner** (updates with no chat turn).
-6. **bdapps LIVE** — buy an input via the 🛒 order dialog → confirm → **show the real receipt SMS on your phone** + `S1000` in the trace.
-7. **Leaf diagnosis (vision)** — *"আমার ফসলের পাতায় দাগ, দেখে দাও"* → the camera/file picker **auto-opens** → snap/upload a leaf → AI diagnosis + KB-grounded treatment.
-8. **Call an officer** — *"আমার এলাকার কৃষি কর্মকর্তাকে কল করতে চাই"* → a green **📞 call button (16123)** appears → tap it → the phone dialer opens.
-9. **Memory** — hit **refresh** → farm still remembered.
+## ⏱️ Pre-Demo Setup Checklist
+- [ ] Dependencies installed: `source .venv/bin/activate`
+- [ ] Knowledge base verified: `cd backend && python -m app.rag.ingest` (195 chunks / 19 docs indexed in ChromaDB)
+- [ ] Application running: `uvicorn app.main:app --port 8000`
+- [ ] Open in browser: **http://localhost:8000**
+- [ ] `.env` has valid `GEMINI_API_KEY` (Free) or `OPENAI_API_KEY`
+- [ ] Click **"New farm"** to clear session history and start fresh.
 
-## 🛡️ Q&A — likely questions & sharp answers (trace = proof)
-| Judge asks | Your answer |
+---
+
+## 🎤 30-Second Elevator Pitch
+> *"ফসলের চিকিৎসা (KrishiMitro) হলো বাংলাদেশের কৃষকদের জন্য একটি এআই-চালিত ডিজিটাল ডাক্তার ও পরামর্শক প্ল্যাটফর্ম। সাধারণ চ্যাটবটের মতো এটি কেবল কথা বলে না, বরং একটি অটোনোমাস এজেন্ট হিসেবে লাইভ আবহাওয়া, সরকারি নলেজ বেস, ভূ-স্থানিক মাটির ডাটা এবং পাইথনের ডিটারমিনিস্টিক আর্থিক ক্যালকুলেশন ব্যবহার করে কৃষকের ফসলের রোগ নির্ণয় ও লাভজনক সিজনাল পরিকল্পনা তৈরি করে দেয়। এর প্রতিটি হিসাব ডানপাশের লাইভ ট্রেস প্যানেলে সম্পূর্ণ স্বচ্ছ ও যাচাইযোগ্য।"*
+
+---
+
+## ▶️ Step-by-Step 4-Minute Demo Script
+
+### 1. Conversational Intake & Geospatial Soil Auto-Detection
+- **Farmer Prompt:** *"আমার ২ একর জমি বগুড়ায়, বাজেট ৮০ হাজার টাকা, রবি মৌসুমে কি চাষ করব?"*
+- **What to Observe in Live Trace:**
+  - `geocode_location` Open-Meteo থেকে GPS স্থানাঙ্ক বের করে।
+  - `lookup_soil_texture` SRDI-এর ডিজিটাল সয়েল ম্যাপ থেকে স্বয়ংক্রিয়ভাবে দোআঁশ (Clay Loam) মাটি শনাক্ত করে।
+  - `get_weather_forecast` আগামী ১৪ দিনের লাইভ পূর্বাভাস নিয়ে আসে।
+  - কৃষককে অতিরিক্ত বিরক্ত না করে প্রয়োজনীয় ৩টি উপযুক্ত ফসলের তুলনামূলক তালিকা উপস্থাপন করে।
+
+### 2. Multi-Crop Ranking with Deterministic Economics
+- এজেন্ট ৩টি উপযুক্ত ফসল (যেমন: আলু, গম, সরিষা) সাজিয়ে দেয়।
+- প্রতিটি ফসলের পানি চাহিদা, ঝুঁকির মাত্রা, সম্ভাব্য খরচ, ফলন এবং প্রফিট মার্জিন (ROI) হিসাব করে দেয়।
+
+### 3. Crop Selection & Dated Season Calendar
+- **Farmer Prompt:** *"আলুর সম্পূর্ণ চাষের রুটিন দাও"*
+- **Result:** জমি তৈরি, সার প্রয়োগের কিস্তি (ইউরিয়া, টিএসপি, এমওপি), সেচের দিন এবং ফসল তোলার সুনির্দিষ্ট তারিখসহ একটি ভ্যালিডেটেড ক্যালেন্ডার তৈরি হয়।
+
+### 4. AWD (Alternate Wetting and Drying) Water-Saving Technology
+- **Farmer Prompt:** *"সেচ খরচ কমানোর উপায় কি?"*
+- **Result:** BRRI/IRRI-এর ভূ-স্থানিক AWD ম্যাপ যাচাই করে ধানের ক্ষেত্রে ২৫-৩০% পানি ও খরচ সাশ্রয়ের বৈজ্ঞানিক গাইডলাইন দেয়।
+
+### 5. AI Leaf Disease Diagnosis (Computer Vision)
+- ক্যামেরা আইকন (📷) ক্লিক করে পোকা ধরা বা রোগাক্রান্ত পাতার ছবি আপলোড করুন।
+- **Result:** Multimodal Vision AI (`gemini-3.8-flash` / `gpt-4o-mini`) পাতার লক্ষণ বিশ্লেষণ করে রোগের নাম (যেমন: লেট ব্লাইট / ব্লাস্ট), নিশ্চিতের মাত্রা (Confidence) এবং বালাইনাশক স্প্রে করার সঠিক প্রেসক্রিপশন দেয়।
+
+### 6. Proactive Weather Alerts
+- উপরে নোটিফিকেশন ব্যানার লক্ষ্য করুন: যদি আগামী কয়েকদিনের মধ্যে ভারী বৃষ্টির সম্ভাবনা থাকে, তবে ইউরিয়া উপরিপ্রয়োগ বা সেচ পিছিয়ে দেওয়ার স্বয়ংক্রিয় সতর্কবার্তা দেখায়।
+
+### 7. Direct Official Helpline Tap-to-Call
+- **Farmer Prompt:** *"কৃষি কর্মকর্তার সাথে কথা বলতে চাই"*
+- **Result:** স্ক্রিনে সরাসরি কৃষি কল সেন্টারের **📞 ১৬১২৩** ডায়াল বাটন চলে আসে।
+
+### 8. Telco Micro-Payment & SMS Receipt (bdapps)
+- প্রয়োজনীয় সার বা বীজ কেনার ক্ষেত্রে মোবাইল ব্যালেন্স থেকে পেমেন্ট ও কনফার্মেশন এসএমএস রিসিটের সম্পূর্ণ সিমুলেশন দেখা যায়।
+
+---
+
+## 🛡️ Key Value Propositions & Answers
+
+| বিষয় | কৃষকের সুবিধা |
 |---|---|
-| "Is the weather real or faked?" | **Real** — Open-Meteo live API. Point at the raw response in the trace; refresh to show it changes. |
-| "Did the AI make up this profit number?" | **No** — point at `compute_financials` in the trace: itemized costs → net/ROI. Deterministic Python, 65 tests. |
-| "What's your RAG / knowledge base?" | **19 real gov docs / 195 chunks** — BARC FRG 2024, BRRI rice, SRDI soil, DAE pest, BBS yields, **8 DAM price reports**. Show a `search_knowledge_base` hit in the trace with the source name. |
-| "Are the market prices real?" | **Real DAM division reports** (dated, with month/year trend) via RAG + a small seeded fallback (labeled). |
-| "What if you ask something not in the KB?" | It **web-searches**, labels the result **"web (unverified)"**, and **saves it to the KB** for next time. Demo with an odd crop (e.g. mushroom/broccoli price). |
-| "Real vs mock?" | README has a full table. Real: weather, RAG, soil map, AWD map, bdapps sandbox. Seeded (labeled): baseline crop costs, a few input prices. |
-| "Is bdapps really working?" | **Yes, real sandbox** — got a real `S1000` charge + SMS. Show the receipt on the phone. (Test wallet is capped/empty by design, so it labels `[on test]`.) |
-| "Show me it's an agent not a chatbot." | One message → 6+ chained tool calls in the trace; it recovers missing info (auto soil), remembers across refresh, adapts to weather. |
-| "Does it handle Bengali?" | Whole demo is in Bengali. Farmer can also use voice-free tap chips. |
-| "Privacy?" | Farmer can say "আমার তথ্য মুছে ফেলো" → confirm → data wiped. bdapps passwords redacted, numbers masked, `.env` never committed. |
-| "What if the network dies?" | Weather has a labeled cached fallback; tools fail gracefully, no crash. |
-
-## 🎯 Point-scoring lines to drop
-- **Agentic (20):** "one request → a chain of dependent tool calls, visible in the trace."
-- **Accuracy (20):** "every number is traceable to a real tool; the finance is deterministic Python."
-- **KB (12):** "19 real gov sources, and it fills its own gaps via web search."
-- **bdapps (10):** show the real receipt SMS.
-- **Innovation (5):** soil auto-detect + AWD map + proactive alerts + self-updating KB + livestock parity.
-
-## ⚠️ If something breaks live
-- Weather/geo slow → keep talking; it caches. bdapps balance empty → that's expected sandbox behavior (`[on test]`), the flow + SMS still prove it.
-- Web search flaky → the price may already be cached in the KB; move on.
-- Always fall back to: **"look at the trace — that's the real tool call."**
+| **কোনো অনুমানের হিসাব নেই (Zero Hallucination)** | সমস্ত আর্থিক হিসাব ও সারের ডোজ পাইথনের ডিটারমিনিস্টিক কোডে গণনা করা হয়। |
+| **সরকারি গবেষণা তথ্যের ভিত্তি** | BARC, BRRI, SRDI, DAE এবং DAM-এর ১৯টি অফিসিয়াল ম্যানুয়ালের ওপর RAG কাজ করে। |
+| **লাইভ আবহাওয়া সচেতনতা** | ওপেন-মেটিও রিয়েল-টাইম এপিআই থেকে বৃষ্টি ও তাপমাত্রার ডাটা নিয়ে পরামর্শ অ্যাডজাস্ট হয়। |
+| **স্মার্ট মেমোরি** | ব্রাউজার রিলোড দিলেও SQLite ডাটাবেজ কৃষকের জমির তথ্য ও পূর্বের চ্যাট মনে রাখে। |

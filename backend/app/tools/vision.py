@@ -26,7 +26,7 @@ def diagnose_leaf(image_data_url: str, note: str = "") -> dict:
     try:
         from ..agent.loop import get_llm_client_and_model
         client, _, prov = get_llm_client_and_model()
-        vision_model = "gemini-2.0-flash" if prov == "gemini" else "gpt-4o-mini"
+        vision_model = "gemini-3.8-flash" if prov == "gemini" else "gpt-4o-mini"
 
         resp = client.chat.completions.create(
             model=vision_model,

@@ -6,9 +6,9 @@ Supports Google Gemini (Free) and OpenAI.
 from . import config
 
 GEMINI_MODELS = [
-    {"id": "gemini-2.0-flash", "label": "Gemini 2.0 Flash (Free, Recommended)"},
-    {"id": "gemini-1.5-flash", "label": "Gemini 1.5 Flash (Free, Fast)"},
-    {"id": "gemini-1.5-pro", "label": "Gemini 1.5 Pro (Free, Advanced)"},
+    {"id": "gemini-3.8-flash", "label": "Gemini 3.8 Flash (Free, Recommended)"},
+    {"id": "gemini-3.5-flash", "label": "Gemini 3.5 Flash (Free, Fast)"},
+    {"id": "gemini-flash-latest", "label": "Gemini Flash Latest (Free)"},
 ]
 
 OPENAI_MODELS = [

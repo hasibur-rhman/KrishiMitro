@@ -8,7 +8,7 @@ An **AI agent** that takes a Bangladeshi farmer from an empty field to a **coste
 ## Tech stack (what we used and why)
 | Layer | Tech | Why |
 |---|---|---|
-| Agent brain | **OpenAI `gpt-5.1`** (tool-calling) | decides which tools to call, chains steps |
+| Agent brain | **Google Gemini (`gemini-3.8-flash`) / OpenAI** (tool-calling) | decides which tools to call, chains steps |
 | Backend | **Python + FastAPI + Uvicorn** | serves the API and streams the trace |
 | Knowledge base (RAG) | **ChromaDB** (embedded vector DB) | search real agronomy docs |
 | Memory | **SQLite** | remembers the farm across sessions |
@@ -27,8 +27,8 @@ A chatbot answers one question. Our agent, for **one** farmer message, **chains 
 
 ## How one request flows
 1. Farmer types a message → **FastAPI** `/api/chat`.
-2. **`loop.py`** (the agent loop): saves the message to SQLite, loads the farm profile + history, builds the system prompt, and calls OpenAI with all the tools.
-3. OpenAI decides which tools to call → **`tools.py` dispatch** runs them → results go back to the model → it may call more tools (up to 10 steps).
+2. **`loop.py`** (the agent loop): saves the message to SQLite, loads the farm profile + history, builds the system prompt, and calls the LLM (Gemini / OpenAI) with all the tools.
+3. The LLM decides which tools to call → **`tools.py` dispatch** runs them → results go back to the model → it may call more tools (up to 10 steps).
 4. Every step is **streamed to the UI as NDJSON**: `tool_call`, `tool_result`, `final` → chat on the left, live trace on the right.
 
 ---

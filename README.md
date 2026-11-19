@@ -2,7 +2,8 @@
 ### *AI-Powered Digital Crop Doctor & Autonomous Agricultural Advisory Platform*
 
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688.svg?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![OpenAI](https://img.shields.io/badge/OpenAI-GPT--5.1%20%7C%20GPT--4o--mini-412991.svg?logo=openai&logoColor=white)](https://platform.openai.com)
+[![Gemini](https://img.shields.io/badge/Google_Gemini-3.8_Flash_(Free)-8E75C2.svg?logo=google&logoColor=white)](https://aistudio.google.com)
+[![OpenAI](https://img.shields.io/badge/OpenAI-Supported-412991.svg?logo=openai&logoColor=white)](https://platform.openai.com)
 [![ChromaDB](https://img.shields.io/badge/ChromaDB-Vector_Store-orange.svg)](https://www.trychroma.com)
 [![Python](https://img.shields.io/badge/Python-3.11+-blue.svg?logo=python&logoColor=white)](https://www.python.org)
 [![Platform](https://img.shields.io/badge/Startup-Fosholer_Chikitsha-brightgreen.svg)](https://fosholerchikitsha.com)
@@ -21,7 +22,7 @@ The system combines **Agentic AI (multi-step tool orchestration)**, **Multimodal
 
 ### 1. 🩺 ফসলের রোগ নির্ণয় (AI Leaf Disease Diagnosis)
 - Farmers can capture or upload photos of affected leaves directly from the field.
-- Multimodal Vision AI (`gpt-4o-mini`) inspects physical leaf symptoms (lesions, discoloration, fungal spots), detects the disease or pest in both English and Bengali, and estimates confidence.
+- Multimodal Vision AI (`gemini-3.8-flash` / `gpt-4o-mini`) inspects physical leaf symptoms (lesions, discoloration, fungal spots), detects the disease or pest in both English and Bengali, and estimates confidence.
 - Diagnosis is cross-verified against the vetted **Integrated Pest Management (IPM)** knowledge base for recommended chemical/organic remedies.
 
 ### 2. 🐛 পোকামাকড় ও বালাই পূর্বাভাস (Pest & Disease Risk Engine)
@@ -84,9 +85,8 @@ The system combines **Agentic AI (multi-step tool orchestration)**, **Multimodal
 ## 🚀 Quick Start & Installation
 
 ### Prerequisites
-- Python 3.10+ (Recommended Python 3.11 or 3.12)
-- Node.js (optional, frontend is vanilla HTML/JS/CSS)
-- OpenAI API Key
+- Python 3.10+ (Tested on Python 3.11, 3.12, 3.13)
+- Google Gemini API Key (100% Free from [Google AI Studio](https://aistudio.google.com/app/apikey)) **OR** OpenAI API Key
 
 ### 1. Clone the Repository
 ```bash
@@ -96,10 +96,9 @@ cd KrishiMitro
 
 ### 2. Set Up Virtual Environment & Dependencies
 ```bash
-cd backend
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+pip install -r backend/requirements.txt
 ```
 
 ### 3. Environment Configuration
@@ -109,10 +108,15 @@ cp .env.example .env
 ```
 Edit `.env` and insert your credentials:
 ```env
-OPENAI_API_KEY=your_openai_api_key_here
-OPENAI_MODEL=gpt-5.1   # or gpt-4o / gpt-4o-mini
+# Option A: 100% Free with Google Gemini (Recommended)
+GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-3.8-flash
 
-# Optional: bdapps credentials for live telco billing
+# Option B: OpenAI (Optional - Paid)
+OPENAI_API_KEY=your_openai_api_key_here
+OPENAI_MODEL=gpt-4o-mini
+
+# Optional: bdapps credentials for live telco billing (Leave empty for built-in simulation)
 BDAPPS_APP_ID=
 BDAPPS_PASSWORD=
 BDAPPS_BASE_URL=https://developer.bdapps.com
@@ -121,6 +125,7 @@ BDAPPS_BASE_URL=https://developer.bdapps.com
 ### 4. Build Knowledge Base (ChromaDB)
 Ingest the 19 agricultural source documents into ChromaDB:
 ```bash
+cd backend
 python -m app.rag.ingest
 ```
 
